@@ -22,9 +22,8 @@ def main():
 
     # Specify time of observation based on interval in kernel(s)
     utc = '2025 JUNE 01 00:00:01'
-    galaxy_targ = '9999000'
 
-    vel_los = vel_earth_los(utc, galaxy_targ)
+    vel_los = vel_earth_los(utc, 'ASP_SLIT1')
     print('\nEARTH LOS VELOCITY: (KM/S)')
     print(vel_los)
     print()

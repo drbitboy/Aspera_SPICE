@@ -22,18 +22,16 @@ def main():
 
     # Specify time of observation based on interval in kernel(s)
     utc = '2025 JUNE 01 00:00:01'
-    target = "ASPERA"
 
-    galaxy_targ = 9999000
     slits = [['ASP_SLIT1', -1999301], ['ASP_SLIT2', -1999302]]
 
-    for i in range(len(slits)):
+    for instr_name,instr_id in slits:
 
         # Find velocity vector for given slit
-        vel = vel_sc_los(utc, target, galaxy_targ, slits[i][0])
+        vel = vel_sc_los(utc, instr_name)
 
         # Display vectors corresponding to each slit
-        print('\n' + slits[i][0])
+        print('\n' + instr_name)
         print('SPACECRAFT LOS VELOCITY:')
         print(vel)
 

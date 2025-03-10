@@ -20,7 +20,7 @@ def sun_radec(utc, target):
     pos = starg[0:3]
 
     # Find right ascension and declination of Sun
-    [range, ra_rad, dec_rad] = sp.recrad(pos)
+    Length_unused, ra_rad, dec_rad = sp.recrad(pos)
 
     ra_deg = sp.convrt(ra_rad, 'RADIANS', 'DEGREES')
     dec_deg = sp.convrt(dec_rad, 'RADIANS', 'DEGREES')

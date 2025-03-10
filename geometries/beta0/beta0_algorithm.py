@@ -2,12 +2,12 @@ import math as m
 import spiceypy as sp
 
 def beta0(utc,target):
-    """Calculates beta0 angle, under which the outer edge of the Sun would be seen under grazing
-    incident from the spacecraft.
+    """Calculates beta0 angle, under which the center of the Sun would
+    be seen from the spacecraft. grazing the Earth terminator
 
-    Args:
-        mkfile (str): metakernel containg data on Aspera, nearby bodies, and M82
+    Args: #btc removed obsolete regerence to mkfile argumen
         utc (str): date and time at which beta0 angle will be found
+        target (str): SPICE name of spacecraft #btc added target argument
 
     Returns:
         float: beta0 angle
@@ -27,26 +27,15 @@ def beta0(utc,target):
     ref = 'J2000'
     abcorr = 'NONE'
 
+    #btc could we use altitude_algorithm.py here?
     # find mangitude of Aspera's position vector wrt Earth
     r_vec, lt = sp.spkpos(target, et, ref, abcorr, 'EARTH')
     r = sp.vnorm(r_vec)
 
-    # # # # # PART 3: SUN RADIUS # # # # #
-
-    # same process as part 1, Sun's body ID is 10
-    [sun_dim, sun_vals] = sp.bodvrd('SUN', 'RADII', 3)
-    rs = (1/3) * (sun_vals[0] + sun_vals[1] + sun_vals[2])
-
-    # # # # # PART 4: DISTANCE BETWEEN EARTH AND THE SUN # # # # #
-
-    # same process as part 2
-    d_vec, lt = sp.spkpos('SUN', et, ref, abcorr, 'EARTH')
-    d = sp.vnorm(d_vec)
-
-    # # # # # PART 5: BETA_0 # # # # #
+    # # # # # PART 2: BETA_0 # # # # #
 
     # final beta0 angle from rad to deg
-    beta0_rad = m.asin(re/r) + m.asin(rs/d)
+    beta0_rad = m.asin(re/r)
     beta0_deg = sp.convrt(beta0_rad, 'RADIANS', 'DEGREES')
 
     return beta0_deg

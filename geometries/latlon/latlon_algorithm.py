@@ -32,7 +32,7 @@ def latlon(utc,target):
 
     # # # # # PART 3: FIND RA/DEC OF ASPERA WRT EARTH # # # # #
 
-    [range, ra_rad, dec_rad] = sp.recrad(pos_ITRF93)
+    [radius, ra_rad, dec_rad] = sp.recrad(pos_ITRF93) #btc keep range()
     ra_deg = sp.convrt(ra_rad, 'RADIANS', 'DEGREES')
     dec_deg = sp.convrt(dec_rad, 'RADIANS', 'DEGREES')
 

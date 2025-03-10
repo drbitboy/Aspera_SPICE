@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from ramangle_algorithm import ramangle, ramangle_instr
+from ramangle_algorithm import ramangle
 import spiceypy as sp
 
 def main():
@@ -22,17 +22,10 @@ def main():
 
     # Specify time of observation based on interval in kernel(s)
     utc = '2025 JUNE 01 00:00:01'
-    target = 'ASPERA'
     instr = 'ASP_SLIT1'
+    ram_angle = ramangle(utc, instr)
 
-    galaxy_targ = '9999000'
-    [ram_angle, vel_sc_los] = ramangle(utc, target, galaxy_targ)
-    [ra, dec] = ramangle_instr(utc, target, instr)
-
-    # print('RAM ANGLE (DEG): ' + str(ram_angle))
-    # print('S/C VELOCITY WRT TARGET (KM/S): ' + str(vel_sc_los))
-    print('RAM ANGLE (DEG): ' + str(ra))
-    print('S/C VELOCITY WRT TARGET (KM/S): ' + str(dec))
+    print('RAM ANGLE (DEG): ' + str(ram_angle))
 
     sp.unload(mkfile)
 

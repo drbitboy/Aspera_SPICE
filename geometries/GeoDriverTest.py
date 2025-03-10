@@ -1,7 +1,7 @@
-from altitude.altitude_Algorithm import altitude
-from beta.beta_Algorithm import beta
-from geometries.eclipse.AsperaEclipse_Algorithm import eclipse
-from geometries.latlon.AsperaLatLon_Algorithm import latlon
+from altitude.altitude_algorithm import altitude  #btc fix typo
+from beta.beta_algorithm import beta  #btc fix typo
+from geometries.eclipse.AsperaEclipse_algorithm import eclipse  #btc fix typo
+from geometries.latlon.AsperaLatLon_algorithm import latlon  #btc fix typo
 
 import spiceypy as sp
 import spiceypy.utils.support_types as stypes

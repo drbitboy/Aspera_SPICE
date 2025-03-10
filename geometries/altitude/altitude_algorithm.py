@@ -20,7 +20,7 @@ def altitude(utc,target):
     # Generate position vector of Aspera
     ptarg, lt = sp.spkpos(target, et, ref, abcorr, 'EARTH')
 
-    # Find mangitude of position vector (altitude)
+    # Find magnitude of position vector (altitude) #btc fix typo
     alt = sp.vnorm(ptarg)
     
     return alt

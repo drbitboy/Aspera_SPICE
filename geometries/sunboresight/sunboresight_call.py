@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from sunboresight_algorithm import sunboresight, sunboresight_instr
+from sunboresight_algorithm import sunboresight_instr
 import spiceypy as sp
 
 def main():
@@ -25,9 +25,7 @@ def main():
     target = 'ASPERA'
     instr = 'ASP_SLIT1'
 
-    galaxy_targ = '9999000'
-    # sunboresight_angle = sunboresight(utc, target, galaxy_targ)
-    sunboresight_angle = sunboresight_instr(utc, target, instr)
+    sunboresight_angle = sunboresight_instr(utc, instr)
     print('SUN BORESIGHT ANGLE (DEG): ' + str(sunboresight_angle))
 
     sp.unload(mkfile)

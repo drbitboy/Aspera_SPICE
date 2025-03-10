@@ -1,76 +1,34 @@
 import spiceypy as sp
 
-def sunboresight(utc, target, galaxy_targ):
+def sunboresight_instr(utc, instr):
     """Calculates the angle between the Sun's unit vector wrt Aspera as seen from Aspera and the
     boresight vector.
 
     Args:
-        mkfile (str): metakernel containg data on Aspera, nearby bodies, and M82
-        utc (str): date and time at which altitude will be found
-        galaxy_targ (str): body ID for galaxy contained in mkfile
-
-    Returns:
-        float: sun boresight angle
-    """
-
-    # # # # # PART 1: POSITION VECTOR FROM ASPERA TO SUN # # # # #
-
-    et = sp.str2et(utc)
-    ref = 'J2000'
-    abcorr = 'NONE'
-
-    # Generate position vector of Aspera wrt Sun
-    [sun_state, lt] = sp.spkpos('SUN', et, ref, abcorr, target)
-    pos = sun_state[0:3]
-
-    # # # # # PART 2: BORESIGHT VECTOR # # # # #
-
-    # Find position vector of Aspera wrt galaxy
-    [gtarg, lt] = sp.spkpos(galaxy_targ, et, ref, abcorr, target)
-
-    # # # # # PART 3: SUN BORESIGHT ANGLE # # # # #
-
-    # Calculate angle between position vectors
-    sb_rad = sp.vsep(pos, gtarg)
-    sb_deg = sp.convrt(sb_rad, 'RADIANS', 'DEGREES')
-
-    return sb_deg
-
-def sunboresight_instr(utc, target, instr):
-    """Calculates the angle between the Sun's unit vector wrt Aspera as seen from Aspera and the
-    boresight vector.
-
-    Args:
-        mkfile (str): metakernel containg data on Aspera, nearby bodies, and M82
         utc (str): date and time at which altitude will be found
         instr (str): instrument name on Aspera
 
     Returns:
-        float: sun boresight angle
+        float: sun-boresight angle
     """
 
-    # # # # # PART 1: POSITION VECTOR FROM ASPERA TO SUN # # # # #
+    # # # # # PART 1: INSTRUMENT FRAME AND BORESIGHT VECTOR, AND OBSERVER THAT HAS INSTRUMENT # # # # #
+
+    frame, bsight = sp.getfov(sp.bodn2c(instr),99,99,99)[1:3]
+    observer = sp.bodc2s(sp.frinfo(sp.namfrm(frame))[0])
+
+    # # # # # PART 2: POSITION VECTOR FROM ASPERA TO SUN IN INSTRUMENT FRAME # # # # #
 
     et = sp.str2et(utc)
-    ref = 'J2000'
     abcorr = 'NONE'
+    pos, lt = sp.spkpos('SUN', et, frame, abcorr, observer)
 
-    # Generate position vector of Aspera wrt Sun
-    [sun_state, lt] = sp.spkpos('SUN', et, ref, abcorr, target)
-    pos = sun_state[0:3]
-
-    # # # # # PART 2: BORESIGHT VECTOR # # # # #
-
-    # Find Aspera's boresight vector in J2000
-    instid = sp.bodn2c(instr)
-    shape, frame, bsight, n, bounds = sp.getfov(instid,99,99,99)
-    rotation_matrix = sp.pxform(frame, ref, et)
-    vboreJ2k = sp.mxv(rotation_matrix,bsight)
-
-    # # # # # PART 3: SUN BORESIGHT ANGLE # # # # #
+    # # # # # PART 3: SUN-BORESIGHT ANGLE # # # # #
 
     # Calculate angle between position vectors
-    sb_rad = sp.vsep(pos, vboreJ2k)
+    sb_rad = sp.vsep(pos, bsight)
     sb_deg = sp.convrt(sb_rad, 'RADIANS', 'DEGREES')
 
     return sb_deg
+
+    #btc alternative:  return sp.vsep(pos, bsight) * sp.dpr()

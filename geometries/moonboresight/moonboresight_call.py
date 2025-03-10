@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from moonboresight_algorithm import moonboresight, moonboresight_instr
+from moonboresight_algorithm import moonboresight, moonboresight_instr, moonboresight_instr_btc
 import spiceypy as sp
 
 def main():
@@ -32,6 +32,11 @@ def main():
     moonboresight2 = moonboresight_instr(utc, target, instr2)
     print('MOON BORESIGHT ANGLE (DEG) (slit1): ', moonboresight1)
     print('MOON BORESIGHT ANGLE (DEG) (slit2): ', moonboresight2)
+
+    moonboresight1_btc = moonboresight_instr_btc(utc, instr1)
+    moonboresight2_btc = moonboresight_instr_btc(utc, instr2)
+    print('MOON BORESIGHT ANGLE (DEG) (slit1): ', moonboresight1_btc)
+    print('MOON BORESIGHT ANGLE (DEG) (slit2): ', moonboresight2_btc)
 
     sp.unload(mkfile)
 
