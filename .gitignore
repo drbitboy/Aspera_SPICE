@@ -1,1 +1,9 @@
 __pycache__
+geometries/kernels/
+x.x
+
+### Created by geometries/GeoDriverCSV.py:
+Test1.csv
+
+### Created by Makefile:
+testall.log
