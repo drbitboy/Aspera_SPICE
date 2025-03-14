@@ -21,9 +21,6 @@ mkfile = './geometries/kernels/mk/asperaMetaKernel.tm'
 sp.furnsh(mkfile)
 
 UTC = '2025-06-01T00:00:01'
-
-eclipsedSun = 'SUN' # Can also be moon
-eclipsedMoon = 'MOON'
 Target = 'ASPERA'
 
 #assign variables to values returned
@@ -31,10 +28,10 @@ ptarg1, ptarg2, betadeg = beta(UTC,Target)
 lon, lat, ra, dec = latlon(UTC,Target)
 
 def tests(E_var,T_var):
-    t = False
-    if abs(E_var - T_var) <= .01:
-       t = True
-    return t
+    return abs(E_var - T_var) <= .01
+
+print(dict(ptarg1=ptarg1,ptarg2=ptarg2,betadeg=betadeg,lon=lon,lat=lat
+          ,ra=ra,ded=dec))
 
 print("X-Earth =",tests(ptarg1[0],float(test[1])))
 print("Y-Earth =",tests(ptarg1[1],float(test[2])))

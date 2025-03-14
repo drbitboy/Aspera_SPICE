@@ -26,9 +26,13 @@ def main():
   ref = 'J2000'                     ### Base ref frame
   quatslists = list()               ### List of lists
   pydir = os.path.dirname(__file__) ### Directory of this script
-  cks ='../kernels/ck/aspera_test1.bc ../kernels/ck/cdr_3_ck.bc'.split()
+  cks ='../kernels/ck/cdr_3_ck.bc ../kernels/ck/aspera_test1.bc'.split()
   for ckrelpath in cks:
     ckpath = os.path.join(pydir, ckrelpath)  ### build path to ck
+    try:  sp.furnsh(ckpath)                  ### Load CK
+    except:
+      print(f"### SKIPPING {ckpath}")
+      continue
     sp.furnsh(ckpath)                        ### Load CK
     quats = list()                           ### Create list of values
     sclkdp = sclk1                           ### Initial SCLKDP
