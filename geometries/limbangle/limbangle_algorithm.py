@@ -155,7 +155,7 @@ def boresight_for_difference(utc, target, galaxy_targ, reference_frame):
 def get_fov(UTC, galaxy_targ):
     '''
     Determines whether or not a galaxy target is in the fov (field of view) of an
-    instrument (using -1999301 = ASP_SLIT1 and -1999302 = ASP_SLIT2 for this test)
+    instrument (using -1999301 = ASP_SLIT_0 and -1999302 = ASP_SLIT_1 for this test)
     at a specific UTC time
 
     Args:
@@ -164,8 +164,8 @@ def get_fov(UTC, galaxy_targ):
 
     Returns:
         (boolean1, boolean2): boolean1 is true if galaxy_targ is in the fov of
-        ASP_SLIT1 at the given UTC time. boolean2 is true if galaxy_targ is in the fov of
-        ASP_SLIT2 at the given UTC time
+        ASP_SLIT_0 at the given UTC time. boolean2 is true if galaxy_targ is in the fov of
+        ASP_SLIT_1 at the given UTC time
     '''
     et = sp.str2et(UTC)
 

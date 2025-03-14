@@ -23,7 +23,7 @@ def main():
     # Specify time of observation based on interval in kernel(s)
     utc = '2025 JUNE 01 00:00:01'
 
-    vel_los = vel_earth_los(utc, 'ASP_SLIT1')
+    vel_los = vel_earth_los(utc, 'ASP_SLIT_0')
     print('\nEARTH LOS VELOCITY: (KM/S)')
     print(vel_los)
     print()

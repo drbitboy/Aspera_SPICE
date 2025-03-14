@@ -23,8 +23,8 @@ def main():
     # Specify time of observation based on interval in kernel(s)
     utc = '2025 JUNE 01 00:00:01'
     target = 'ASPERA'
-    instr1 = 'ASP_SLIT1'
-    instr2 = 'ASP_SLIT2'
+    instr1 = 'ASP_SLIT_0'
+    instr2 = 'ASP_SLIT_1'
 
     galaxy_targ = '9999000'
     # moonboresight_angle = moonboresight(utc, target, galaxy_targ)

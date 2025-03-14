@@ -1,7 +1,7 @@
 from altitude.altitude_algorithm import altitude  #btc fix typo
 from beta.beta_algorithm import beta  #btc fix typo
-from geometries.eclipse.AsperaEclipse_algorithm import eclipse  #btc fix typo
-from geometries.latlon.AsperaLatLon_algorithm import latlon  #btc fix typo
+from eclipse.eclipse_algorithm import eclipse  #btc fix typo
+from latlon.latlon_algorithm import latlon  #btc fix typo
 
 import spiceypy as sp
 import spiceypy.utils.support_types as stypes
@@ -20,11 +20,11 @@ mkfile = './geometries/kernels/mk/asperaMetaKernel.tm'
 #mkfile = os.path.abspath(os.path.join(os.path.dirname(__file__), mkfile))
 sp.furnsh(mkfile)
 
-UTC = '2023-06-01T00:00:01'
+UTC = '2025-06-01T00:00:01'
 
 eclipsedSun = 'SUN' # Can also be moon
 eclipsedMoon = 'MOON'
-Target = 'HST'
+Target = 'ASPERA'
 
 #assign variables to values returned
 ptarg1, ptarg2, betadeg = beta(UTC,Target)

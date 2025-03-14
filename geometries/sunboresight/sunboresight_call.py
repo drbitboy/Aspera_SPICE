@@ -23,7 +23,7 @@ def main():
     # Specify time of observation based on interval in kernel(s)
     utc = '2025 JUNE 01 00:00:01'
     target = 'ASPERA'
-    instr = 'ASP_SLIT1'
+    instr = 'ASP_SLIT_0'
 
     sunboresight_angle = sunboresight_instr(utc, instr)
     print('SUN BORESIGHT ANGLE (DEG): ' + str(sunboresight_angle))

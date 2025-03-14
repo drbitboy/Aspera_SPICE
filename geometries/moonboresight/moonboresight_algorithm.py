@@ -95,7 +95,7 @@ def moonboresight_instr_btc(utc, instr):
 
     # # # # # PART 2: POSITION VECTOR FROM TARGET TO MOON IN INSTRUMENT FRAME # # # # #
 
-    # Get frame ID from kernel pool e.g. FRAME_ASP_SLIT1 = -1999301, and
+    # Get frame ID from kernel pool e.g. FRAME_ASP_SLIT_0 = -1999301, and
     # convert to target ID of frame e.g. FRAME_-1999301_CENTER = -1999
     frameID  = sp.gipool(f"FRAME_{frame}",0,1)[0]
     targetID = sp.gipool(f"FRAME_{frameID}_CENTER",0,1)[0]

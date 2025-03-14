@@ -22,7 +22,7 @@ def main():
 
     # Specify time of observation based on interval in kernel(s)
     utc = '2025 JUNE 01 00:00:01'
-    instr = 'ASP_SLIT1'
+    instr = 'ASP_SLIT_0'
     ram_angle = ramangle(utc, instr)
 
     print('RAM ANGLE (DEG): ' + str(ram_angle))

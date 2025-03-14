@@ -1,4 +1,4 @@
-from sunboresight_algorithm import sunboresight
+from sunboresight_algorithm import sunboresight_instr
 import spiceypy as sp
 import pytest
 import os
@@ -25,7 +25,7 @@ def test_sunboresight():
     load_kernel()
     # NOTE : commenting out assertions until we get test values
     for utc_sbs in test_values:
-        curr_sbs = sunboresight(utc_sbs.split(',')[0], Target, galaxy_targ)
+        curr_sbs = sunboresight_instr(utc_sbs.split(',')[0], Target, galaxy_targ)
         test_sbs = float(utc_sbs.split(',')[10])
         #assert curr_sbs == pytest.approx(test_sbs, abs = .0001)
         pass

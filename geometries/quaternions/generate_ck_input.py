@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from rotation_algorithm import rotation_matrix, make_quart
+from rotation_algorithm import rotation_matrix_utc, make_quart
 import spiceypy as sp
 
 def main():
@@ -18,7 +18,7 @@ def main():
     utc = '2025-06-01T00:47:00'
     target = 'ASPERA'
 
-    cmat = rotation_matrix(utc, target)
+    cmat = rotation_matrix_utc(utc, target)
     quat = make_quart(cmat[0])
     
     print(cmat)

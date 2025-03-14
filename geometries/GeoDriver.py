@@ -1,12 +1,11 @@
 from altitude.altitude_algorithm import altitude  #btc fix typo
 from beta.beta_algorithm import beta  #btc fix typo
-from geometries.eclipse.AsperaEclipse_algorithm import eclipse
-from geometries.latlon.AsperaLatLon_algorithm import latlon  #btc fix typo
+from eclipse.eclipse_algorithm import eclipse
+from latlon.latlon_algorithm import latlon  #btc fix typo
 
 from limbangle.limbangle_algorithm import limbangle  #btc fix typo
 
 import spiceypy as sp
-import spiceypy.utils.support_types as stypes
 
 #had to make different kernel path for GeoDriver, DON'T DO THIS
 #set current working directory to geometries for other test files
@@ -15,7 +14,7 @@ import spiceypy.utils.support_types as stypes
 mkfile = './geometries/kernels/mk/asperaMetaKernelM82.tm'
 sp.furnsh(mkfile)
 
-Target = input("Enter target (ASPERA / HST): ")
+Target = 'ASPERA'
 if Target == 'ASPERA':
     UTC = '2025 JUNE 01 00:00:01'
 else:
