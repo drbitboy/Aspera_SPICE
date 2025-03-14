@@ -30,9 +30,6 @@ lon, lat, ra, dec = latlon(UTC,Target)
 def tests(E_var,T_var):
     return abs(E_var - T_var) <= .01
 
-print(dict(ptarg1=ptarg1,ptarg2=ptarg2,betadeg=betadeg,lon=lon,lat=lat
-          ,ra=ra,ded=dec))
-
 print("X-Earth =",tests(ptarg1[0],float(test[1])))
 print("Y-Earth =",tests(ptarg1[1],float(test[2])))
 print("Z-Earth =",tests(ptarg1[2],float(test[3])))
@@ -56,6 +53,19 @@ if tests(dec,float(test[11])) and tests(dec,float(test[12])):
     print("Dec = True")
 else:
     print("Dec = False")
+
+disabled = """
+print(dict(ptarg1=ptarg1,ptarg2=ptarg2,betadeg=betadeg,lon=lon,lat=lat
+          ,ra=ra,dec=dec,test=[f"{float(v):.4f}" for v in test]))
+print(','.join([f"{float(v):.7f}"
+                for v in [0]+list(ptarg1)+list(ptarg2)
+                        +([betadeg]*2)
+                        +([ra]*2)
+                        +([dec]*2)
+                ]
+               )
+     )
+"""
 
 
 
