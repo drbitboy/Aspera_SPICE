@@ -21,7 +21,7 @@
   * geometries/artifacts/ - source data for geometries/GeoDriverTest.py script
   * geometries/kernels/ - Test kernels
     * N.B. this will come from another repo, and is not part of this repo
-* Makefile - Make script to loadrun tests
+* Makefile - Make script to optinall load kernels, then run all available tests
 
 ### Manifest - Other files
 
