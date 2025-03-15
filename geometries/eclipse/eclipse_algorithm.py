@@ -5,9 +5,9 @@ def eclipse(utc, eclipsed_body,target):
     by an observer (Aspera).
 
     Args:
-        mkfile (str): metakernel containg data on Aspera, nearby bodies, and M82
         utc (str): date and time at which state of eclipse, or occultation, will be determined
         eclipsed_body (str): body that may be eclisped
+        target (str): observer (Aspera)
 
     Returns:
         str: state of eclipse
@@ -18,7 +18,7 @@ def eclipse(utc, eclipsed_body,target):
     # Front body
     front = 'EARTH'
     fshape = 'ELLIPSOID'
-    fframe = 'ITRF93'
+    fframe = f'IAU_{front}'
 
     # Back body
     back = eclipsed_body
@@ -37,7 +37,7 @@ def eclipse(utc, eclipsed_body,target):
         # First by second, or second by first
         ocltid = 'PARTIAL'
 
-    elif ocltid == 0:
+    elif ocltid == 0:   #btc "== 0.0:" or simply "else:"
         ocltid = 'NONE'
 
     return ocltid

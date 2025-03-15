@@ -21,7 +21,7 @@ UTC = '2025 JUNE 01 00:00:01'
 Target = "HST"
 
 instrument_info = {'ASP_SOLAR': ['CIRCLE', 3], 'ASP_S-BAND': 
-                   ['CIRCLE', 3], 'ASP_SLIT1': ['RECTANGLE', 4], 'ASP_SLIT2': ['RECTANGLE', 4]}
+                   ['CIRCLE', 3], 'ASP_SLIT_0': ['RECTANGLE', 4], 'ASP_SLIT_1': ['RECTANGLE', 4]}
 
 #@pytest.mark.skip(reason="Need limangle values..")
 def test_limbangle():

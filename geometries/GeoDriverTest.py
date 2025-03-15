@@ -1,7 +1,7 @@
-from altitude.altitude_Algorithm import altitude
-from beta.beta_Algorithm import beta
-from geometries.eclipse.AsperaEclipse_Algorithm import eclipse
-from geometries.latlon.AsperaLatLon_Algorithm import latlon
+from altitude.altitude_algorithm import altitude  #btc fix typo
+from beta.beta_algorithm import beta  #btc fix typo
+from eclipse.eclipse_algorithm import eclipse  #btc fix typo
+from latlon.latlon_algorithm import latlon  #btc fix typo
 
 import spiceypy as sp
 import spiceypy.utils.support_types as stypes
@@ -20,21 +20,15 @@ mkfile = './geometries/kernels/mk/asperaMetaKernel.tm'
 #mkfile = os.path.abspath(os.path.join(os.path.dirname(__file__), mkfile))
 sp.furnsh(mkfile)
 
-UTC = '2023-06-01T00:00:01'
-
-eclipsedSun = 'SUN' # Can also be moon
-eclipsedMoon = 'MOON'
-Target = 'HST'
+UTC = '2025-06-01T00:00:01'
+Target = 'ASPERA'
 
 #assign variables to values returned
 ptarg1, ptarg2, betadeg = beta(UTC,Target)
 lon, lat, ra, dec = latlon(UTC,Target)
 
 def tests(E_var,T_var):
-    t = False
-    if abs(E_var - T_var) <= .01:
-       t = True
-    return t
+    return abs(E_var - T_var) <= .01
 
 print("X-Earth =",tests(ptarg1[0],float(test[1])))
 print("Y-Earth =",tests(ptarg1[1],float(test[2])))
@@ -59,6 +53,19 @@ if tests(dec,float(test[11])) and tests(dec,float(test[12])):
     print("Dec = True")
 else:
     print("Dec = False")
+
+disabled = """
+print(dict(ptarg1=ptarg1,ptarg2=ptarg2,betadeg=betadeg,lon=lon,lat=lat
+          ,ra=ra,dec=dec,test=[f"{float(v):.4f}" for v in test]))
+print(','.join([f"{float(v):.7f}"
+                for v in [0]+list(ptarg1)+list(ptarg2)
+                        +([betadeg]*2)
+                        +([ra]*2)
+                        +([dec]*2)
+                ]
+               )
+     )
+"""
 
 
 

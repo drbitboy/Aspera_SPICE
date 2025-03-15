@@ -1,4 +1,4 @@
-from sunboresight_algorithm import sunboresight
+from sunboresight_algorithm import sunboresight_instr
 
 import spiceypy as sp
 import os
@@ -22,7 +22,7 @@ test_sunAngle = 0.14514962569996467
 
 def test_one_value():
     load_kernel()
-    sunAngle = sunboresight(UTC, Target, Galaxy_Targ)
+    sunAngle = sunboresight_instr(UTC, Target, Galaxy_Targ)
 
     assert sunAngle == pytest.approx(test_sunAngle, abs = .0001)
     sp.unload(mkfile)

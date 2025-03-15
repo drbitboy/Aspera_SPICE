@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from sunboresight_algorithm import sunboresight, sunboresight_instr
+from sunboresight_algorithm import sunboresight_instr
 import spiceypy as sp
 
 def main():
@@ -23,11 +23,9 @@ def main():
     # Specify time of observation based on interval in kernel(s)
     utc = '2025 JUNE 01 00:00:01'
     target = 'ASPERA'
-    instr = 'ASP_SLIT1'
+    instr = 'ASP_SLIT_0'
 
-    galaxy_targ = '9999000'
-    # sunboresight_angle = sunboresight(utc, target, galaxy_targ)
-    sunboresight_angle = sunboresight_instr(utc, target, instr)
+    sunboresight_angle = sunboresight_instr(utc, instr)
     print('SUN BORESIGHT ANGLE (DEG): ' + str(sunboresight_angle))
 
     sp.unload(mkfile)

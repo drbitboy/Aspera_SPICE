@@ -22,8 +22,8 @@ def main():
 
     # Specify time of observation based on interval in kernel(s)
     utc = '2025 JUNE 01 00:01:00'
-    instr1 = 'ASP_SLIT1'
-    instr2 = 'ASP_SLIT2'
+    instr1 = 'ASP_SLIT_0'
+    instr2 = 'ASP_SLIT_1'
 
         # Find angle for given slit
     slitpa_deg1 = slitpa(utc, instr1)
