@@ -6,7 +6,7 @@
 
 ### Quick start:
 ```
-  git clone -b btc_review_202503 --depth=1 https://github.com/drbitboy/Aspera_SPICE.git```
+  git clone -b btc_review_202503 --depth=1 https://github.com/drbitboy/Aspera_SPICE.git
   cd Aspera_SPICE
 
   make  ### load test kernels, then run all tests
