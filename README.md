@@ -15,8 +15,8 @@
 ### Manifest - Primary files
 
 * geometries/ - top directory of SPICE scripts
-  * geometries/<xyz>/<xyz>_algorithm.py - library routines
-  * geometries/<xyz>/<xyz>_call.py - test drivers for <xyz>_algorithm routines
+  * geometries/xyz/xyz_algorithm.py - library routines
+  * geometries/xyz/xyz_call.py - test drivers for xyz_algorithm routines
   * geometries/GeoDriver*.py - large global or near-global tests
   * geometries/artifacts/ - source data for geometries/GeoDriverTest.py script
   * geometries/kernels/ - Test kernels
@@ -26,7 +26,7 @@
 ### Manifest - Other files
 
 * README.md - this file
-* geometries/<xyz>/test_*.py - more test drivers for <xyz>_algorithm routines
+* geometries/xyz/test_*.py - more test drivers for xyz_algorithm routines
    * Most are tied to obsolete HST SPICE data and are functionally disabled
 * geometries/latlon/test_latlon.csv - possibly obsolete
 * geometries/test_hst.csv - obsolete
