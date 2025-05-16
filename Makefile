@@ -6,6 +6,7 @@ KERNELS_TARGET = geometries/kernels
 $(PRIMARY_TARGET): $(KERNELS_TARGET)
 	( find . -name '*.py' \
 	| grep -v '_algorithm[.]py$$' \
+	| grep -v 'galaxy_pck_gen.py$$' \
 	| sort \
 	| while read i \
 	; do echo;echo;echo ================ $$i ================ \
