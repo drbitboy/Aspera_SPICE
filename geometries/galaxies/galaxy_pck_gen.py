@@ -118,7 +118,7 @@ def main():
             z = str(m.sin(m.radians(dec_deg)))
 
             tpc_file.write(f"SITE{galaxy['id']}_XYZ        = (" + x + " " + y + " " + z + ")\n")
-            tpc_file.write(f"SITE{galaxy['id']}_CENTER     = 0\n\\begintext")
+            tpc_file.write(f"SITE{galaxy['id']}_CENTER     = -1999\n\\begintext\n")
 
 
     # Save updated .JSON
