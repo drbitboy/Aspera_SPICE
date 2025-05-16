@@ -1,6 +1,6 @@
 import spiceypy as sp
 
-def eclipse(utc, eclipsed_body,target):
+def eclipse(utc, eclipsed_body, target):
     """Determines whether or not a specified body (back) has been eclipsed by Earth (front) as seen
     by an observer (Aspera).
 
@@ -14,6 +14,7 @@ def eclipse(utc, eclipsed_body,target):
     """
     
     et = sp.str2et(utc)
+    abcorr = 'NONE'
 
     # Front body
     front = 'EARTH'
@@ -23,10 +24,7 @@ def eclipse(utc, eclipsed_body,target):
     # Back body
     back = eclipsed_body
     bshape = 'ELLIPSOID'
-    bframe = 'IAU_' + eclipsed_body
-
-    # info about observer
-    abcorr = 'NONE'
+    bframe = f'IAU_{eclipsed_body}'
 
     # Determine whether or not the back body is eclipsed
     ocltid = sp.occult(back, bshape, bframe, front, fshape, fframe, abcorr, target, et)
@@ -37,7 +35,7 @@ def eclipse(utc, eclipsed_body,target):
         # First by second, or second by first
         ocltid = 'PARTIAL'
 
-    elif ocltid == 0:   #btc "== 0.0:" or simply "else:"
+    else:
         ocltid = 'NONE'
 
     return ocltid

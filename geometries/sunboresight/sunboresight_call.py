@@ -15,7 +15,7 @@ def main():
 
     # Find location of kernel & furnish it
     cwd = Path.cwd()
-    rel_path = 'geometries/kernels/mk/asperaMetaKernelM82.tm'
+    rel_path = 'geometries/kernels/mk/aspera_mk.tm'
 
     mkfile = os.path.join(cwd, rel_path)
     sp.furnsh(mkfile)
@@ -23,10 +23,14 @@ def main():
     # Specify time of observation based on interval in kernel(s)
     utc = '2025 JUNE 01 00:00:01'
     target = 'ASPERA'
-    instr = 'ASP_SLIT_0'
+    instr1 = 'ASP_SLIT_1'
+    instr2 = 'ASP_SLIT_2'
 
-    sunboresight_angle = sunboresight_instr(utc, instr)
-    print('SUN BORESIGHT ANGLE (DEG): ' + str(sunboresight_angle))
+    sunboresight_angle1 = sunboresight_instr(utc, instr1)
+    sunboresight_angle2 = sunboresight_instr(utc, instr2)
+
+    print('SUN BORESIGHT ANGLE (DEG) - slit 1: ' + str(sunboresight_angle1))
+    print('SUN BORESIGHT ANGLE (DEG) - slit 2: ' + str(sunboresight_angle2))
 
     sp.unload(mkfile)
 

@@ -15,7 +15,7 @@ def main():
 
     # Find location of kernel & furnish it
     cwd = Path.cwd()
-    rel_path = 'geometries/kernels/mk/asperaMetaKernelM82.tm'
+    rel_path = 'geometries/kernels/mk/aspera_mk.tm'
 
     mkfile = os.path.join(cwd, rel_path)
     sp.furnsh(mkfile)
@@ -23,9 +23,13 @@ def main():
     # Specify time of observation based on interval in kernel(s)
     utc = '2025 JUNE 01 00:00:01'
 
-    vel_los = vel_earth_los(utc, 'ASP_SLIT_0')
-    print('\nEARTH LOS VELOCITY: (KM/S)')
-    print(vel_los)
+    vel_los1 = vel_earth_los(utc, 'ASP_SLIT_1')
+    vel_los2 = vel_earth_los(utc, 'ASP_SLIT_2')
+    print('\nEARTH LOS VELOCITY - slit 1: (KM/S)')
+    print(vel_los1)
+    print()
+    print('\nEARTH LOS VELOCITY - slit 2: (KM/S)')
+    print(vel_los2)
     print()
 
     sp.unload(mkfile)

@@ -16,7 +16,7 @@ test = data[1]
 testfile.close()
 
 #os.chdir(os.path.abspath(os.path.dirname(__file__)))
-mkfile = './geometries/kernels/mk/asperaMetaKernel.tm'
+mkfile = './geometries/kernels/mk/aspera_mk.tm'
 #mkfile = os.path.abspath(os.path.join(os.path.dirname(__file__), mkfile))
 sp.furnsh(mkfile)
 

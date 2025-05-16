@@ -3,7 +3,7 @@ import spiceypy as sp
 
 def main():
 
-    mk = os.path.join(os.path.dirname(__file__),'../kernels/mk/asperaMetaKernel.tm')
+    mk = os.path.join(os.path.dirname(__file__),'../kernels/mk/aspera_mk.tm')
     spk = os.path.join(os.path.dirname(__file__),'M82spk.bsp')
 
     sp.furnsh(mk)

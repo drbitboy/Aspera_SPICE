@@ -15,7 +15,7 @@ def main():
 
     # Find location of kernel & furnish it
     cwd = Path.cwd()
-    rel_path = 'geometries/kernels/mk/asperaMetaKernelM82.tm'
+    rel_path = 'geometries/kernels/mk/aspera_mk.tm'
 
     mkfile = os.path.join(cwd, rel_path)
     sp.furnsh(mkfile)
@@ -23,7 +23,7 @@ def main():
     # Specify time of observation based on interval in kernel(s)
     utc = '2025 JUNE 01 00:00:01'
 
-    slits = [['ASP_SLIT_0', -1999301], ['ASP_SLIT_1', -1999302]]
+    slits = [['ASP_SLIT_1', -1999301], ['ASP_SLIT_2', -1999302]]
 
     for instr_name,instr_id in slits:
 

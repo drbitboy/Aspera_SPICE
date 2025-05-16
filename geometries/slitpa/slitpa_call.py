@@ -15,15 +15,15 @@ def main():
 
     # Find location of kernel & furnish it
     cwd = Path.cwd()
-    rel_path = 'geometries/kernels/mk/asperaMetaKernelM82.tm'
+    rel_path = 'geometries/kernels/mk/aspera_mk.tm'
 
     mkfile = os.path.join(cwd, rel_path)
     sp.furnsh(mkfile)
 
     # Specify time of observation based on interval in kernel(s)
     utc = '2025 JUNE 01 00:01:00'
-    instr1 = 'ASP_SLIT_0'
-    instr2 = 'ASP_SLIT_1'
+    instr1 = 'ASP_SLIT_1'
+    instr2 = 'ASP_SLIT_2'
 
         # Find angle for given slit
     slitpa_deg1 = slitpa(utc, instr1)

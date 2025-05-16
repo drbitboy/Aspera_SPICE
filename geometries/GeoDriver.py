@@ -11,7 +11,7 @@ import spiceypy as sp
 #set current working directory to geometries for other test files
 #update: setting current working directory to analysis for testing
 
-mkfile = './geometries/kernels/mk/asperaMetaKernelM82.tm'
+mkfile = './geometries/kernels/mk/aspera_mk.tm'
 sp.furnsh(mkfile)
 
 Target = 'ASPERA'

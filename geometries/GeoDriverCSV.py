@@ -21,7 +21,7 @@ import getopt
 import re
 
 
-mkfile = './geometries/kernels/mk/asperaMetaKernelM82.tm'
+mkfile = './geometries/kernels/mk/aspera_mk.tm'
 sp.furnsh(mkfile)
 
 eclipsedSun = 'SUN' # Can also be moon
@@ -30,8 +30,8 @@ planetEarth = "EARTH"
 #Target = 'HST'
 Target = 'ASPERA'
 galaxy_targ = '9999000'
-instr1 = "ASP_SLIT_0"
-instr2 = "ASP_SLIT_1"
+instr1 = "ASP_SLIT_1"
+instr2 = "ASP_SLIT_2"
 
 # initialize arguements
 t_initial = None
@@ -92,10 +92,10 @@ def GeoLoop(t_initial, t_final, step,file_name):
 
     header = ['UTC','Altitude (km)','Cartesian Position wrt Earth (J200, km)','Cartesian Position wrt Sun (J200, km)','Beta Angle (deg)', 'Beta0 (deg)',
               'Eclipse Status (Sun)','Eclipse Status (Moon)','Longitude (ITRF93, deg)','Latitude (ITRF93, deg)','RA (J200, deg)','Dec (J200, deg)',
-              'Limb Angle (slit_0) (deg)','Limb Angle (slit_2) (deg)', 'Moon Boresight (slit_0) (deg)','Moon Boresight (slit_2) (deg)',
-              'Sun Boresight (slit_0) (deg)','Sun Boresight (slit_2) (deg)', 'Ram Angle (slit_0) (deg)','Ram Angle (slit_2) (deg)', 
-              'BSC difference (ASP bod and ASP_SLIT_0)', 'BSC difference (ASP body and ASP_SLIT_1)','FOV (slit_0 visiblity, slit_2 visiblity)', 
-              'OBSGEO', 'vel_earth_los', 'vel_sc_los (slit_0)', 'vel_sc_los (slit_2)', 'slitpa (slit_0)', 'slitpa (slit_2)']
+              'Limb Angle (slit_1) (deg)','Limb Angle (slit_2) (deg)', 'Moon Boresight (slit_1) (deg)','Moon Boresight (slit_2) (deg)',
+              'Sun Boresight (slit_1) (deg)','Sun Boresight (slit_2) (deg)', 'Ram Angle (slit_1) (deg)','Ram Angle (slit_2) (deg)', 
+              'BSC difference (ASP bod and ASP_SLIT_1)', 'BSC difference (ASP body and ASP_SLIT_2)','FOV (slit_1 visiblity, slit_2 visiblity)', 
+              'OBSGEO', 'vel_earth_los', 'vel_sc_los (slit_1)', 'vel_sc_los (slit_2)', 'slitpa (slit_1)', 'slitpa (slit_2)']
     data = []
     while res_date <= end:
         UTC = res_date.strftime(fmt)
@@ -113,7 +113,7 @@ def GeoLoop(t_initial, t_final, step,file_name):
         sun_boresight2 = sunboresight_instr(UTC, instr2)
         ram_angle1 = ramangle(UTC, instr1)
         ram_angle2 = ramangle(UTC, instr2)
-        asp_slit_0 = boresight_for_difference(UTC, Target, galaxy_targ, instr1)
+        asp_slit_1 = boresight_for_difference(UTC, Target, galaxy_targ, instr1)
         asp_slit_2 = boresight_for_difference(UTC, Target, galaxy_targ, instr2)
         visible = get_fov(UTC, galaxy_targ)
         obs= obsgeo(UTC, Target, planetEarth)
@@ -126,7 +126,7 @@ def GeoLoop(t_initial, t_final, step,file_name):
 
         csv_line = [UTC,alt,ptarg1,ptarg2,betadeg,beta_0,eclipsed_Sun, eclipsed_Moon,lon,lat,ra,dec,
                     limb_angle1,limb_angle2,moon_boresight1,moon_boresight2,sun_boresight1,sun_boresight2,
-                    ram_angle1,ram_angle2, asp_slit_0, asp_slit_2, visible, obs, vel_earth, vel_sc_los1, 
+                    ram_angle1,ram_angle2, asp_slit_1, asp_slit_2, visible, obs, vel_earth, vel_sc_los1, 
                     vel_sc_los2, slitpa1, slitpa2]
         data.append(csv_line)
 

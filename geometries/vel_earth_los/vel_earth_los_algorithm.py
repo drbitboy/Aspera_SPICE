@@ -9,7 +9,7 @@ def vel_earth_los(utc, instr):
 
     Args:
         utc (str): date and time at which Earth LOS velocity is found
-        instr (str): instrument name e.g. ASP_SLIT_0 or ASP_SLIT_0
+        instr (str): instrument name e.g. ASP_SLIT_1 or ASP_SLIT_1
 
     Returns:
         tuple: EARTH LOS velocity

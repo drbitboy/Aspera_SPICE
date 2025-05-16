@@ -6,7 +6,7 @@ def beta(utc, Target):
     position vector wrt Sun.
 
     Args:
-        mkfile (str): metakernel containingg data on Aspera, nearby bodies, and M82 #btc fix typo
+        mkfile (str): metakernel containing data on Aspera, nearby bodies, and M82 #btc fix typo
         utc (str): date and time at which beta angle will be found
 
     Returns:

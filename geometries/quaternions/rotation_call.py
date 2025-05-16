@@ -9,8 +9,8 @@ def main():
 
     # Find location of kernel & furnish it
     cwd = Path.cwd()
-    #rel_path = 'geometries/kernels/mk/asperaMetaKernel_cdrck.tm'
-    rel_path = 'geometries/kernels/mk/asperaMetaKernel_cktest.tm'
+    #rel_path = 'geometries/kernels/mk/aspera_mk.tm'
+    rel_path = 'geometries/kernels/mk/aspera_mk.tm'
 
     mkfile = os.path.join(cwd, rel_path)
     #mkfile = os.path.join(cwd, rel_path_sval)
