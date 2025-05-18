@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from moonboresight_algorithm import moonboresight, moonboresight_instr, moonboresight_instr_btc
 import spiceypy as sp
+from pytest import approx
 
 def main():
     """Tests moonboresight_algorithm.py using ephemeris data specified by the user.
@@ -40,5 +41,16 @@ def main():
 
     sp.unload(mkfile)
 
+    t1     = 99.97031141321129
+    t2     = 98.26247448505372
+    t1_btc = 99.97031141321128
+    t2_btc = 98.26247448505369
+
+    assert approx(moonboresight1, rel=1e-14) == t1
+    assert approx(moonboresight2, rel=1e-14) == t2
+    assert approx(moonboresight1_btc, rel=1e-14) == t1_btc
+    assert approx(moonboresight2_btc, rel=1e-14) == t2_btc
+
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from sun_radec_algorithm import sun_radec
 import spiceypy as sp
+from pytest import approx
 
 def main():
     """Tests sun_radec_algorithm.py using ephemeris data specified by the user.
@@ -31,5 +32,12 @@ def main():
 
     sp.unload(mkfile)
 
+    tsun_ra = 68.81335865587167
+    tsun_dec = 22.00922025779235
+
+    assert approx(sun_ra, rel=1e-14) == tsun_ra
+    assert approx(sun_dec, rel=1e-14) == tsun_dec
+
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from altitude_algorithm import altitude
 import spiceypy as sp
+from pytest import approx
 
 def main():
     """Tests altitude_algorithm.py using ephemeris data specified by the user.
@@ -30,5 +31,8 @@ def main():
 
     sp.unload(mkfile)
 
+    assert approx(alt,rel=1e-14) == 6965.796879326453
+
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from sunboresight_algorithm import sunboresight_instr
 import spiceypy as sp
+from pytest import approx
 
 def main():
     """Tests sunboresight_algorithm.py using ephemeris data specified by the user.
@@ -34,5 +35,12 @@ def main():
 
     sp.unload(mkfile)
 
+    tsunboresight_angle1 = 67.65839835309303
+    tsunboresight_angle2 = 67.65839835165521
+
+    assert approx(sunboresight_angle1,rel=1e-14) == tsunboresight_angle1
+    assert approx(sunboresight_angle2,rel=1e-14) == tsunboresight_angle2
+
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

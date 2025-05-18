@@ -1,5 +1,6 @@
 import os
 import spiceypy as sp
+from pytest import approx
 
 def main():
 
@@ -24,4 +25,12 @@ def main():
     sp.unload(mk)
     sp.unload(spk)
 
-main()
+    tptarg = sp.vpack(-9.76810086e+16, 5.87699666e+16, 3.07840739e+17)
+    tlt = 1094991953051.3345
+
+    assert (sp.vnorm(sp.vsub(ptarg, tptarg)) / sp.vnorm(ptarg)) < 1e-8
+    assert approx(lt, rel=1e-14) == tlt
+
+if "__main__" == __name__:
+  main()
+def test_pytest_main(): main()

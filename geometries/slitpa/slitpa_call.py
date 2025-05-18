@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from slitpa_algorithm import slitpa
 import spiceypy as sp
+from pytest import approx
 
 def main():
     """Tests slitpa_algorithm.py using ephemeris data specified by the user.
@@ -35,5 +36,14 @@ def main():
 
     sp.unload(mkfile)
 
+    tslitpa_deg1 = 13.673537173177163
+    tslitpa_deg2 = 11.746859533577101
+
+    assert approx(slitpa_deg1, rel=1e-14) == tslitpa_deg1
+    assert approx(slitpa_deg2, rel=1e-14) == tslitpa_deg2
+
+def test_pytest_main(): main()
+
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

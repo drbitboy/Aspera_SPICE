@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from sunangle_algorithm import sunangle
 import spiceypy as sp
+from pytest import approx
 
 def main():
     """Tests sunangle_algorithm.py using ephemeris data specified by the user.
@@ -25,9 +26,11 @@ def main():
     instrs = ['ASP_SLIT_1', 'ASP_SLIT_2', 'ASP_SOLAR']
 
     # Calculate sun boresight angle for each spacecraft instrument
+    sb_list = list()
     for i in range(len(instrs)):
 
         sb_angle = sunangle(utc, instrs[i])
+        sb_list.append(sb_angle)
 
         # Display sun boresight angle corresponding to each instrument
         print('\n' + instrs[i])
@@ -35,5 +38,15 @@ def main():
 
     sp.unload(mkfile)
 
+    tsb_list = [67.658398353093, 67.6583983516552, 22.34518861180846]
+
+    assert len(sb_list) == len(tsb_list)
+    while sb_list:
+        assert approx(sb_list.pop(), rel=1e-14) == tsb_list.pop()
+
+def test_pytest_main(): main()
+
+
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

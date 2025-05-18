@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from limbangle_algorithm import limbangle, limbangle_instr
 import spiceypy as sp
+from pytest import approx
 
 def main():
     """Tests limbangle_algorithm.py using ephemeris data specified by the user.
@@ -36,5 +37,12 @@ def main():
 
     sp.unload(mkfile)
 
+    tlimb_instr1 = 85.29005096408083
+    tlimb_instr2 = 83.34300565996018
+
+    assert approx(limb_instr1, rel=1e-14) == tlimb_instr1
+    assert approx(limb_instr2, rel=1e-14) == tlimb_instr2
+
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

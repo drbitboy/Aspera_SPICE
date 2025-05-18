@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from eclipse_algorithm import eclipse
 import spiceypy as sp
+from pytest import approx
 # import spiceypy.utils.support_types as stypes
 
 def main():
@@ -35,5 +36,9 @@ def main():
 
     sp.unload(mkfile)
 
+    assert eclipsed_sun.upper() == 'NONE'
+    assert eclipsed_moon.upper() == 'PARTIAL'
+
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

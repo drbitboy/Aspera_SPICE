@@ -58,6 +58,8 @@ def main():
   assert not (L%4),'List does not comprise quaternion elements'
   ckA = cks[0]
 
+  passed_at_least_one = False
+
   ### Loop over subsequent lists from subsequent CKs
   for arrB,ckB in zip(quatslists[1:],cks[1:]):
 
@@ -73,7 +75,13 @@ def main():
 
     if "--verbose" in sys.argv[1:]:
       for abo in mismatches: print(abo)
-    print(f"Mismatches:  {len(mismatches)}")
+    assert not len(mismatches),f"{len(mismatches)} mismatches for kernel {ckB}"
+
+    passed_at_least_one = True
+
+  assert passed_at_least_one,f"no kernels found to compare with {ckA}"
+
 
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

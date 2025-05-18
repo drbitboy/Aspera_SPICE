@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from ramangle_algorithm import ramangle
 import spiceypy as sp
+from pytest import approx
 
 def main():
     """Tests ramangle_algorithm.py using ephemeris data specified by the user.
@@ -32,5 +33,14 @@ def main():
 
     sp.unload(mkfile)
 
+    tram_angle1 = 73.80434638092929
+    tram_angle2 = 73.17302679954112
+
+    assert approx(ram_angle1, rel=1e-14) == tram_angle1
+    assert approx(ram_angle2, rel=1e-14) == tram_angle2
+
+def test_pytest_main(): main()
+
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

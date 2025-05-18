@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from vel_earth_los_algorithm import vel_earth_los
 import spiceypy as sp
+from pytest import approx
 
 def main():
     """Tests vel_earth_los_algorithm.py using ephemeris data specified by the user.
@@ -34,5 +35,12 @@ def main():
 
     sp.unload(mkfile)
 
+    tvel_los1 = -8.779013226625448
+    tvel_los2 = -7.8037293763198505
+
+    assert approx(tvel_los1,rel=1e-14) == vel_los1
+    assert approx(tvel_los2,rel=1e-14) == vel_los2
+
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

@@ -7,10 +7,12 @@ $(PRIMARY_TARGET): $(KERNELS_TARGET)
 	( find . -name '*.py' \
 	| grep -v '_algorithm[.]py$$' \
 	| grep -v 'galaxy_pck_gen.py$$' \
+	| grep -v 'GeoDriverTest.py$$' \
 	| sort \
 	| while read i \
 	; do echo;echo;echo ================ $$i ================ \
 	; python $$i -s 2025-06-01T00:01:00 -e 2025-06-01T01:01:00 -h 600 \
+	|| exit 1 \
 	; done \
 	&& echo "make $@ Succeeded" \
 	|| ( echo "make $@ Failed" && false ) \
