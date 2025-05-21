@@ -1,9 +1,19 @@
 
-PRIMARY_TARGET = testall
-PRIMARY_LOG = $(PRIMARY_TARGET).log
 KERNELS_DIR = geometries/kernels
 
-$(PRIMARY_TARGET): kernels_check
+pytestall: kernels_check
+	( find . -name '*.py' \
+	| grep -v '_algorithm[.]py$$' \
+	| grep -v 'GeoDriverCSV[.]py$$' \
+	| grep -v 'geometries/kernels/' \
+	| sort \
+	| xargs pytest $$i \
+	&& echo "make $@ Succeeded" \
+	|| ( echo "make $@ Failed" && false ) \
+	) \
+	| tee $@.log
+
+testall: kernels_check
 	( find . -name '*.py' \
 	| grep -v '_algorithm[.]py$$' \
 	| grep -v 'geometries/kernels/' \
@@ -16,10 +26,10 @@ $(PRIMARY_TARGET): kernels_check
 	&& echo "make $@ Succeeded" \
 	|| ( echo "make $@ Failed" && false ) \
 	) \
-	| tee $(PRIMARY_LOG)
+	| tee $@.log
 
 kernels_check:
 	cd $(KERNELS_DIR) && make
 
 clean:
-	$(RM) $(PRIMARY_LOG)
+	$(RM) pytestall.log testall.log

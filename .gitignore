@@ -5,4 +5,5 @@ x.x
 Test1.csv
 
 ### Created by Makefile:
+pytestall.log
 testall.log
