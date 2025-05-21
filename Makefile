@@ -1,13 +1,12 @@
 
 PRIMARY_TARGET = testall
 PRIMARY_LOG = $(PRIMARY_TARGET).log
-KERNELS_TARGET = geometries/kernels
+KERNELS_DIR = geometries/kernels
 
-$(PRIMARY_TARGET): $(KERNELS_TARGET)
+$(PRIMARY_TARGET): kernels_check
 	( find . -name '*.py' \
 	| grep -v '_algorithm[.]py$$' \
-	| grep -v 'galaxy_pck_gen.py$$' \
-	| grep -v 'GeoDriverTest.py$$' \
+	| grep -v 'geometries/kernels/' \
 	| sort \
 	| while read i \
 	; do echo;echo;echo ================ $$i ================ \
@@ -19,12 +18,8 @@ $(PRIMARY_TARGET): $(KERNELS_TARGET)
 	) \
 	| tee $(PRIMARY_LOG)
 
-$(KERNELS_TARGET):
-	cd $$(dirname $@) \
-	&& git clone \
-	     --quiet -b btc_review_202503 --depth 1 \
-	     https://github.com/drbitboy/Aspera_SPICE_kernels.git \
-	     $$(basename $@)
+kernels_check:
+	cd $(KERNELS_DIR) && make
 
 clean:
 	$(RM) $(PRIMARY_LOG)
