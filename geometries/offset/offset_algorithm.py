@@ -13,25 +13,18 @@ def offset(utc, instr, galaxy_targ):
         float: angle between galaxy vector and boresight vector in degrees
     """
 
-    # # # # # PART 1: RETRIEVE ASPERA BORESIGHT VECTOR AND GALAXY VECTOR # # # # #
+    # # # # # PART 0: RETRIEVE ASPERA BORESIGHT VECTOR AND GALAXY VECTOR # # # # #
+    # # # # #         - N.B. BOTH VECTORS WILL BE IN INSTRUMENT FRAME    # # # # #
 
-    galaxy_id = sp.bodn2c(galaxy_targ)
     et = sp.str2et(utc)
 
-    # get ASPERA's boresight vector
+    # Instrument => Instrument ID => Reference Frame Name and boresight
+    # => Reference frame ID => Spacecraft ID => Spacecraft name (bodc2s)
+    # => Vector to galaxy from spacecraft
     ref,vbore = sp.getfov(sp.bods2c(instr),99,99,99)[1:3]
+    refID  = sp.gipool(f"FRAME_{ref}",0,1)[0]
+    scID = sp.gipool(f"FRAME_{refID}_CENTER",0,1)[0]
+    glx_vec = sp.spkezr(galaxy_targ, et, ref, 'NONE', sp.bodc2s(scID))[0][:3]
 
-    # convert to J2000
-    rotation_matrix = sp.pxform(ref, 'J2000', et)
-    vboreJ2K = sp.mxv(rotation_matrix, vbore)
-
-    # get galaxy vector
-    glx_vec = sp.gdpool(f"SITE{galaxy_id}_XYZ", 0, 3)
-
-    # # # # # PART 2: FIND ANGLE BETWEEN BORESIGHT VECTOR AND GALAXY VECTOR # # # # #
-
-    angle = sp.vsep(vboreJ2K, glx_vec)
-    # convert to degrees
-    angle = sp.convrt(angle, 'RADIANS', 'DEGREES')
-
-    return angle
+    # Angle btw thse vectors in instrument reference frame, degrees
+    return sp.convrt(sp.vsep(vbore, glx_vec), 'RADIANS', 'DEGREES')
