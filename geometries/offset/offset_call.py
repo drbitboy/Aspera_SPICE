@@ -3,33 +3,68 @@ from pathlib import Path
 from offset_algorithm import offset
 import spiceypy as sp
 import csv
-import pytest
+from pytest import approx
 
-def old_offset(utc, instr, galaxy_targ):
+def offset_brian(utc, instr, galaxy_targ):
+    """ Calculates angle offset between boresight vector and
+    vector to galaxy target
+
+    Should be near-duplicate functionality with offset_algorithm.offset
+
+    Args:
+        utc (str): date and time at which altitude will be found
+        instr (str): instrument from which to extract frame & boresight
+        galaxy_targ (str): name of the galaxy
+
+    Returns:
+        float: angle between galaxy vector and boresight vector in degrees
+        int: spacecraft ID
+    """
 
     # # # # # PART 1: RETRIEVE ASPERA BORESIGHT VECTOR AND GALAXY VECTOR # # # # #
- 
-    galaxy_id = sp.bodn2c(galaxy_targ)
-    et = sp.str2et(utc)
- 
-    # get ASPERA's boresight vector
-    ref,vbore = sp.getfov(sp.bods2c(instr),99,99,99)[1:3]
- 
-    # convert to J2000
-    rotation_matrix = sp.pxform(ref, 'J2000', et)
-    vboreJ2K = sp.mxv(rotation_matrix, vbore)
+    # # # # #         - N.B. BOTH VECTORS WILL BE IN INSTRUMENT FRAME    # # # # #
 
-    # get galaxy vector
-    glx_vec = sp.gdpool(f"SITE{galaxy_id}_XYZ", 0, 3)
+    et = sp.str2et(utc)
+
+    # Instrument => Instrument ID => Reference Frame Name and boresight
+    # => Reference frame ID => Spacecraft ID => Spacecraft name (bodc2s)
+    # => Vector to galaxy from spacecraft
+    ref,vbore = sp.getfov(sp.bods2c(instr),99,99,99)[1:3]
+    refID  = sp.gipool(f"FRAME_{ref}",0,1)[0]
+    scID = sp.gipool(f"FRAME_{refID}_CENTER",0,1)[0]
+    glx_vec = sp.spkezr(galaxy_targ, et, ref, 'NONE', sp.bodc2s(scID))[0][:3]
 
     # # # # # PART 2: FIND ANGLE BETWEEN BORESIGHT VECTOR AND GALAXY VECTOR # # # # #
 
-    angle = sp.vsep(vboreJ2K, glx_vec)
-    # convert to degrees
-    angle = sp.convrt(angle, 'RADIANS', 'DEGREES')
+    return sp.convrt(sp.vsep(vbore, glx_vec), 'RADIANS', 'DEGREES'), scID
+
+def offset_test(utc, instr, galaxy_targ):
+
+    # # # # # PART 1: RETRIEVE OFFSET FROM TWO METHODS # # # # #
+ 
+    angle = offset(utc, instr, galaxy_targ)
+    angle_brian, scID = offset_brian(utc, instr, galaxy_targ)
+
+    # # # # # PART 2: GET THE SOURCE GALAXY UNIT VECTOR VIA TWO METHODS # # # # #
+
+    et = sp.str2et(utc)
+    galaxy_id = sp.bodn2c(galaxy_targ)
+
+    glx_vec = sp.gdpool(f"SITE{galaxy_id}_XYZ", 0, 3)
+    glx_ref = sp.gcpool(f"SITE{galaxy_id}_FRAME", 0, 1, 99)[0]
+    if glx_ref.upper() != 'J2000':
+        glx_vec = sp.mxv(sp.pxform(glx_ref, 'J2000', et), glx_vec)
+
+    glx_vec_brian = sp.spkezr(galaxy_targ, et, 'J2000', 'NONE', sp.bodc2s(scID))[0][:3]
+
+    # # # # # PART 3: TEST ANGLES AND VECTORS # # # # #
+
+    assert approx(angle_brian, rel=1e-14) == angle
+    assert sp.vnorm(sp.vsub(glx_vec, glx_vec_brian)) < 1e-14
+
+    # # # # # PART 3: RETURN ANGLE FROM offset_algorithm.offset # # # # #
 
     return angle
-
 
 def main():
     """
@@ -62,15 +97,9 @@ def main():
             csvwriter.writerow('UTC,ASP_SLIT_1 offset,ASP_SLIT_2 offset'.split(','))
             for i in range(24):
                 utc_cur = sp.et2utc(et, 'C', 3)
-                angle1 = offset(utc_cur, instr1, name)
-                angle2 = offset(utc_cur, instr2, name)
+                angle1 = offset_test(utc_cur, instr1, name)
+                angle2 = offset_test(utc_cur, instr2, name)
                 csvwriter.writerow([utc_cur, angle1, angle2])
-
-                oldangle1 = pytest.approx(old_offset(utc_cur, instr1, name),rel=1e-14)
-                oldangle2 = pytest.approx(old_offset(utc_cur, instr2, name),rel=1e-14)
-                assert oldangle1 == angle1
-                assert oldangle2 == angle2
-
                 et += 3600
 
     sp.unload(mkfile)
