@@ -15,7 +15,7 @@ def obsgeo(utc, sc, targ):
     """
     
     et = sp.utc2et(utc)
-    ref = 'J2000'
+    ref = 'ITRF93'
     abcorr = 'NONE'
     sc_id = sp.bodn2c(sc)
     planet_id = sp.bodn2c(targ)
