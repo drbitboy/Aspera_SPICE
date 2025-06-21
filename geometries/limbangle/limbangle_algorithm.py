@@ -150,7 +150,7 @@ def boresight_for_difference(utc, target, galaxy_targ, reference_frame):
     frame, bsc_rf = sp.getfov(sp.namfrm(reference_frame), 4)[1:3]
 
     #btc convert bsc_rf to same frame (J2000) as bsc_aspera before subtraction
-    return bsc_aspera - sp.mxv(sp.pxform(reference_frame,ref,et),bsc_rf)
+    return sp.vhat(bsc_aspera) - sp.vhat(sp.mxv(sp.pxform(reference_frame,ref,et),bsc_rf))
 
 def get_fov(UTC, galaxy_targ):
     '''
