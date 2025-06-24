@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from obsgeo_algorithm import obsgeo
 import spiceypy as sp
+from pytest import approx
 
 def main():
     """Tests obsgeo_algorithm.py using ephemeris data specified by the user.
@@ -15,7 +16,7 @@ def main():
 
     # Find location of kernel & furnish it
     cwd = Path.cwd()
-    rel_path = 'geometries/kernels/mk/asperaMetaKernelM82.tm'
+    rel_path = 'geometries/kernels/mk/aspera_mk.tm'
 
     mkfile = os.path.join(cwd, rel_path)
     sp.furnsh(mkfile)
@@ -33,5 +34,10 @@ def main():
 
     sp.unload(mkfile)
 
+    tpos_sc = sp.vpack(-2350.100014168167, -5136.189651057799, -4076.6299753359644)
+
+    assert (sp.vnorm(sp.vsub(pos_sc, tpos_sc)) / sp.vnorm(pos_sc)) < 1e-14
+
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

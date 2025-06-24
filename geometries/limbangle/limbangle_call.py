@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from limbangle_algorithm import limbangle, limbangle_instr
 import spiceypy as sp
+from pytest import approx
 
 def main():
     """Tests limbangle_algorithm.py using ephemeris data specified by the user.
@@ -15,7 +16,7 @@ def main():
 
     # Find location of kernel & furnish it
     cwd = Path.cwd()
-    rel_path = 'geometries/kernels/mk/asperaMetaKernelM82.tm'
+    rel_path = 'geometries/kernels/mk/aspera_mk.tm'
 
     mkfile = os.path.join(cwd, rel_path)
     sp.furnsh(mkfile)
@@ -23,8 +24,8 @@ def main():
     # Specify time of observation based on interval in kernel(s)
     utc = '2025-06-01T00:00:01' # sp.et2utc(et, 'C', 3) # '2025 JUNE 01 00:00:01'
     target = 'ASPERA'
-    instr1 = 'ASP_SLIT1'
-    instr2 = 'ASP_SLIT2'
+    instr1 = 'ASP_SLIT_1'
+    instr2 = 'ASP_SLIT_2'
 
     galaxy_targ = '9999000'
     # limb = limbangle(utc, target, galaxy_targ)
@@ -36,5 +37,12 @@ def main():
 
     sp.unload(mkfile)
 
+    tlimb_instr1 = 85.29005096408083
+    tlimb_instr2 = 83.34300565996018
+
+    assert approx(limb_instr1, rel=1e-14) == tlimb_instr1
+    assert approx(limb_instr2, rel=1e-14) == tlimb_instr2
+
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

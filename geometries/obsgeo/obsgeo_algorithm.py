@@ -3,7 +3,7 @@ from pathlib import Path
 import spiceypy as sp
 
 def obsgeo(utc, sc, targ):
-    """X, Y, and Z coordinates of the S/C wrt Earth center.
+    """XYZ coordinates of the S/C vector wrt Earth center in J2000 frame
 
     Args:
         utc (str): date and time at which S/C position will be found
@@ -15,7 +15,7 @@ def obsgeo(utc, sc, targ):
     """
     
     et = sp.utc2et(utc)
-    ref = 'J2000'
+    ref = 'ITRF93'
     abcorr = 'NONE'
     sc_id = sp.bodn2c(sc)
     planet_id = sp.bodn2c(targ)
