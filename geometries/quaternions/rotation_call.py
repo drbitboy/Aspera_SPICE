@@ -34,7 +34,8 @@ def main():
     tsclk = 8020944700000.0
     tqtr = [0.28490427, -0.46964652, 0.79148418, -0.26798229]
 
-    assert (sp.vnormg(sp.vsubg(qtr, tqtr, 4), 4) / sp.vnormg(qtr, 4)) < 1e-7
+    try   : assert (sp.vnormg(sp.vsubg(qtr, tqtr, 4), 4) / sp.vnormg(qtr, 4)) < 1e-7
+    except: assert (sp.vnormg(sp.vsubg(qtr, tqtr)) / sp.vnormg(qtr)) < 1e-7
     assert approx(sclk, rel=1e-14) == tsclk
 
 if __name__ == "__main__":
