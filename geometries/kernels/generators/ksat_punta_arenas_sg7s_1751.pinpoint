@@ -1,0 +1,80 @@
+Notional PINPOINT Definitions file for KSAT Punta Arenas Ground Station.
+========================================================================
+
+Brian T. Carcich, Latchmoor Service, INC.
+
+See file [ndosl_190716_v02.cmt] at URL:
+  https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/stations/
+
+
+Caveats
+========================================================================
+
+- Station Code (SG7S) and NASA Number (1751) are notional
+- Lat/Lon values are low-resolution and may be off by dozens of metres
+- Elevation value is also low-resolution
+- Elevation value assumes WGS84 is coincident with sea level
+- WGS84 model data (BODY399_RADII) used by PINPOINT are in this file
+  - PCK passed to PINPOINT on command-line has no data
+
+ 
+Table 1: WGS-84 Ellipsoid
+========================================================================
+ 
+   From "SECT. D1: SPHEROID CONSTANTS" in [1]:
+ 
+      --  --------  ------------  -------------
+      NO  SPHEROID  R (M)         1/F
+      --  --------  ------------  -------------
+      25  WGS84     6378137.0000  298.257223563
+      --  --------  ------------  -------------
+ 
+   Spheroid RADII corresponding to the values above are:
+
+\begindata 
+
+      BODY399_RADII     = ( 6378.137  6378.137  6356.75231424518 )
+
+\begintext
+
+ 
+Table 2: GEODETIC POSITIONS ON WORLD GEODETIC SYSTEM 1984
+========================================================================
+ 
+   ----  ----  --------------  --------------  --------  ------------------------
+   STDN  NASA     LATITUDE       E. LONGITUDE   HEIGHT   NOTE
+   CODE  NMBR   DEG AMIN ASEC   DEG AMIN ASEC   METERS
+   ----  ----  --------------  --------------  --------  ------------------------
+   SG7S  1751  -52 56 06.0000  -70 52 14.0000    22.000  eoportal.org/satellite-missions/gnomes
+
+
+
+ 
+Table 3: STATION LOCATION AND EQUIPMENT
+========================================================================
+ 
+   ----  ----  ----------------------------------------------------------------
+   STDN  NASA  LOCATION;
+   CODE  NMBR  EQUIPMENT
+   ----  ----  ----------------------------------------------------------------
+   SG7S  1751  KSAT Punta Arenas, Chile; S/X-band
+
+
+PINPOINT Inputs
+=======================================================
+ 
+\begindata
+   SITES                   += 'NDOSL_SG7S'
+   NDOSL_SG7S_CENTER     = 399
+   NDOSL_SG7S_FRAME      = 'ITRF93'
+   NDOSL_SG7S_IDCODE     = 399101751
+   NDOSL_SG7S_LATLON     = ( -52.9350000000, -72.8705555556,  0.022000 )
+   NDOSL_SG7S_TOPO_FRAME = 'NDOSL_SG7S_TOPO'
+   NDOSL_SG7S_TOPO_ID    = 399101751
+   NDOSL_SG7S_UP         = 'Z'
+   NDOSL_SG7S_NORTH      = 'X'
+\begintext
+
+
+End of PINPOINT inputs.
+=======================================================
