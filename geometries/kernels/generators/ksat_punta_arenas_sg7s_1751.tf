@@ -5,7 +5,7 @@ KPL/FK
    This file was created by PINPOINT.
  
    PINPOINT Version 3.3.0 --- December 13, 2021
-   PINPOINT RUN DATE/TIME:    2025-06-24T16:06:11
+   PINPOINT RUN DATE/TIME:    2025-06-25T15:58:03
    PINPOINT DEFINITIONS FILE: ksat_punta_arenas_sg7s_1751.pinpoint
    PINPOINT PCK FILE:         empty.tpc
    PINPOINT SPK FILE:         ksat_punta_arenas_sg7s_1751.bsp
@@ -35,15 +35,15 @@ KPL/FK
       Topocentric frame NDOSL_SG7S_TOPO is centered at the
       site NDOSL_SG7S, which has Cartesian coordinates
  
-         X (km):                  0.1134672919694E+04
-         Y (km):                 -0.3681578903408E+04
-         Z (km):                 -0.5066204512612E+04
+         X (km):                  0.1262468925645E+04
+         Y (km):                 -0.3639742342804E+04
+         Z (km):                 -0.5066212460217E+04
  
       and planetodetic coordinates
  
-         Longitude (deg):       -72.8705555556000
+         Longitude (deg):       -70.8705555556000
          Latitude  (deg):       -52.9350000000000
-         Altitude   (km):         0.2200000000033E-01
+         Altitude   (km):         0.3196000000027E-01
  
       These planetodetic coordinates are expressed relative to
       a reference spheroid having the dimensions
@@ -68,7 +68,7 @@ KPL/FK
    TKFRAME_399101751_SPEC              =  'ANGLES'
    TKFRAME_399101751_UNITS             =  'DEGREES'
    TKFRAME_399101751_AXES              =  ( 3, 2, 3 )
-   TKFRAME_399101751_ANGLES            =  ( -287.1294444444000,
+   TKFRAME_399101751_ANGLES            =  ( -289.1294444444000,
                                             -142.9350000000000,
                                              180.0000000000000 )
  
@@ -93,9 +93,24 @@ Caveats
 - Station Code (SG7S) and NASA Number (1751) are notional
 - Lat/Lon values are low-resolution and may be off by dozens of metres
 - Elevation value is also low-resolution
-- Elevation value assumes WGS84 is coincident with sea level
+- Sea-level-relative elevation from here:
+  - https://www.eoportal.org/satellite-missions/gnomes#ground-segment
+- WGM84-relataive elevation value uses EGM2008 as a proxy for sea level
 - WGS84 model data (BODY399_RADII) used by PINPOINT are in this file
   - PCK passed to PINPOINT on command-line has no data
+- Undulation offset from WGS84 to EGM2008 ("sea-level") is +9.960m
+  - https://earth-info.nga.mil/index.php?dir=wgs84&action=wgs84
+  - .ZIP archive
+    - https://earth-info.nga.mil/php/download.php?file=egm-08interpolation
+    - Run interp_2p5min.exe from that .ZIP
+      - With INPUT.DAT/OUTPUT.DAT:
+           37.000000  241.000000    -26.151
+           37.000000 -119.000000    -26.151
+           36.000000  242.983333    -29.171
+           90.000000    0.000000     14.899
+          -90.000000  359.983333    -30.150
+          -90.000000    0.000000    -30.150
+          -52.935000  -70.870556      9.960   <== Punta Arenas, Chile
  
  
 Table 1: WGS-84 Ellipsoid
@@ -125,7 +140,7 @@ Table 2: GEODETIC POSITIONS ON WORLD GEODETIC SYSTEM 1984
    STDN  NASA     LATITUDE       E. LONGITUDE   HEIGHT   NOTE
    CODE  NMBR   DEG AMIN ASEC   DEG AMIN ASEC   METERS
    ----  ----  --------------  --------------  --------  ------------------------
-   SG7S  1751  -52 56 06.0000  -70 52 14.0000    22.000  eoportal.org/satellite-missions/gnomes
+   SG7S  1751  -52 56 06.0000  -70 52 14.0000    31.960  eoportal.org + EGM2008
  
  
  
@@ -148,7 +163,7 @@ begindata
    NDOSL_SG7S_CENTER     = 399
    NDOSL_SG7S_FRAME      = 'ITRF93'
    NDOSL_SG7S_IDCODE     = 399101751
-   NDOSL_SG7S_LATLON     = ( -52.9350000000, -72.8705555556,  0.022000 )
+   NDOSL_SG7S_LATLON     = ( -52.9350000000, -70.8705555556,  0.031960 )
    NDOSL_SG7S_TOPO_FRAME = 'NDOSL_SG7S_TOPO'
    NDOSL_SG7S_TOPO_ID    = 399101751
    NDOSL_SG7S_UP         = 'Z'
