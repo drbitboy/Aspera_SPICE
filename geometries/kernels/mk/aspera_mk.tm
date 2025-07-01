@@ -1,0 +1,29 @@
+KPL/MK
+
+	The names and contents of the kernels referenced by this meta-kernel are as follows:
+
+	File Name			    	Description
+	--------------------------  ----------------------------------
+    aspera.00000.draft.tsc      
+    aspera_test.bsp
+    galaxies.bsp
+    naif0012.tls                
+    pck00011_n0066_sun_earth_moon.tpc  
+    asp_v000.tf              
+    cdr_3_ck.bc
+    asp_v000.draftF.ti
+
+\begindata
+   KERNELS_TO_LOAD = (
+               './geometries/kernels/sclk/aspera.00000.draft.tsc'
+               './geometries/kernels/spk/aspera_test.bsp'
+               './geometries/kernels/spk/galaxies.bsp'
+               './geometries/kernels/lsk/naif0012.tls'
+	       './geometries/kernels/fk/earth_assoc_itrf93.tf'
+	       './geometries/kernels/pck/earth_itrf_short_test.bpc'
+               './geometries/kernels/pck/pck00011_n0066_sun_earth_moon.tpc'
+               './geometries/kernels/fk/asp_v000.tf'
+               './geometries/kernels/ck/cdr_3_ck.bc'
+               './geometries/kernels/ik/asp_v000.draftF.ti'
+			   )
+\begintext

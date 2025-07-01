@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from beta0_algorithm import beta0
 import spiceypy as sp
+from pytest import approx
 
 def main():
     """Tests beta0_algorithm.py using ephemeris data specified by the user.
@@ -15,7 +16,7 @@ def main():
 
     # Find location of kernel & furnish it
     cwd = Path.cwd()
-    rel_path = 'geometries/kernels/mk/asperaMetaKernelM82.tm'
+    rel_path = 'geometries/kernels/mk/aspera_mk.tm'
 
     mkfile = os.path.join(cwd, rel_path)
     sp.furnsh(mkfile)
@@ -30,5 +31,8 @@ def main():
 
     sp.unload(mkfile)
 
+    assert approx(beta0_angle,rel=1e-14) == 66.15082727879638
+
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from slitpa_algorithm import slitpa
 import spiceypy as sp
+from pytest import approx
 
 def main():
     """Tests slitpa_algorithm.py using ephemeris data specified by the user.
@@ -15,15 +16,15 @@ def main():
 
     # Find location of kernel & furnish it
     cwd = Path.cwd()
-    rel_path = 'geometries/kernels/mk/asperaMetaKernelM82.tm'
+    rel_path = 'geometries/kernels/mk/aspera_mk.tm'
 
     mkfile = os.path.join(cwd, rel_path)
     sp.furnsh(mkfile)
 
     # Specify time of observation based on interval in kernel(s)
     utc = '2025 JUNE 01 00:01:00'
-    instr1 = 'ASP_SLIT1'
-    instr2 = 'ASP_SLIT2'
+    instr1 = 'ASP_SLIT_1'
+    instr2 = 'ASP_SLIT_2'
 
         # Find angle for given slit
     slitpa_deg1 = slitpa(utc, instr1)
@@ -35,5 +36,14 @@ def main():
 
     sp.unload(mkfile)
 
+    tslitpa_deg1 = 13.673537173177163
+    tslitpa_deg2 = 11.746859533577101
+
+    assert approx(slitpa_deg1, rel=1e-14) == tslitpa_deg1
+    assert approx(slitpa_deg2, rel=1e-14) == tslitpa_deg2
+
+def test_pytest_main(): main()
+
 if __name__ == "__main__":
     main()
+def test_pytest_main(): main()

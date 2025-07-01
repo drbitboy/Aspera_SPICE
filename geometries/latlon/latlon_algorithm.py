@@ -18,11 +18,11 @@ def latlon(utc,target):
 
     et = sp.str2et(utc)
     ref_J2000 = 'J2000'
-    ref_ITRF93 = 'ITRF93'
+    ref_EARTH = 'IAU_EARTH'
     abcorr = 'NONE'
 
     [pos_J2000, lt] = sp.spkpos(target, et, ref_J2000, abcorr, 'EARTH')
-    [pos_ITRF93, lt] = sp.spkpos(target, et, ref_ITRF93, abcorr, 'EARTH')
+    [pos_EARTH, lt] = sp.spkpos(target, et, ref_EARTH, abcorr, 'EARTH')
 
     # # # # # PART 2: FIND LAT/LON OF ASPERA WRT EARTH # # # # #
 
@@ -32,7 +32,7 @@ def latlon(utc,target):
 
     # # # # # PART 3: FIND RA/DEC OF ASPERA WRT EARTH # # # # #
 
-    [range, ra_rad, dec_rad] = sp.recrad(pos_ITRF93)
+    [radius, ra_rad, dec_rad] = sp.recrad(pos_EARTH) #btc keep range()
     ra_deg = sp.convrt(ra_rad, 'RADIANS', 'DEGREES')
     dec_deg = sp.convrt(dec_rad, 'RADIANS', 'DEGREES')
 
