@@ -34,10 +34,10 @@ def main():
 
     sp.unload(mkfile)
 
-    tlat = -27.264999787177263
-    tlon =  26.213529553706564
-    tra  = 136.8537531260797
-    tdec = -27.138162302631798
+    tlat = -27.138162302631798
+    tlon = 136.8537531260797
+    tra  =  26.213529553706564
+    tdec = -27.264999787177263
 
     assert approx(lat, rel=1e-14) == tlat
     assert approx(lon, rel=1e-14) == tlon

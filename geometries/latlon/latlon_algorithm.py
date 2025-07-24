@@ -8,10 +8,10 @@ def latlon(utc,target):
         utc (str): date and time at which beta0 angle will be found
 
     Returns:
-        float: latitude
-        float: longitude
-        float: right ascension
-        float: declination
+        float: latitude, Earth frame (IAU_EARTH)
+        float: longitude, Earth frame
+        float: right ascension, Inertial J2000 frame (J2000)
+        float: declination, Inertial J2000 frame
     """
 
     # # # # # PART 1: FIND POSITION VECTOR FROM EARTH -> ASPERA # # # # #
@@ -26,13 +26,13 @@ def latlon(utc,target):
 
     # # # # # PART 2: FIND LAT/LON OF ASPERA WRT EARTH # # # # #
 
-    [radius, lon_rad, lat_rad] = sp.reclat(pos_J2000)
+    [radius, lon_rad, lat_rad] = sp.reclat(pos_EARTH)
     lon_deg = sp.convrt(lon_rad, 'RADIANS', 'DEGREES')
     lat_deg = sp.convrt(lat_rad, 'RADIANS', 'DEGREES')
 
-    # # # # # PART 3: FIND RA/DEC OF ASPERA WRT EARTH # # # # #
+    # # # # # PART 3: FIND RA/DEC OF ASPERA WRT J2000 # # # # #
 
-    [radius, ra_rad, dec_rad] = sp.recrad(pos_EARTH) #btc keep range()
+    [radius, ra_rad, dec_rad] = sp.recrad(pos_J2000) #btc keep range()
     ra_deg = sp.convrt(ra_rad, 'RADIANS', 'DEGREES')
     dec_deg = sp.convrt(dec_rad, 'RADIANS', 'DEGREES')
 
