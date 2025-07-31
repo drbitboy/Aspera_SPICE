@@ -19,7 +19,7 @@ def eclipse(utc, eclipsed_body, target):
     # Front body
     front = 'EARTH'
     fshape = 'ELLIPSOID'
-    fframe = f'IAU_{front}'
+    fframe = 'ITRF93'
 
     # Back body
     back = eclipsed_body

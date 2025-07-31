@@ -34,7 +34,7 @@ def main():
 
     sp.unload(mkfile)
 
-    tpos_sc = sp.vpack(-2350.100014168167, -5136.189651057799, -4076.6299753359644)
+    tpos_sc = sp.vpack(-4516.725151234588, 4245.791795767529, -3177.22710853854)
 
     assert (sp.vnorm(sp.vsub(pos_sc, tpos_sc)) / sp.vnorm(pos_sc)) < 1e-14
 

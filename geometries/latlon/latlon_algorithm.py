@@ -8,7 +8,7 @@ def latlon(utc,target):
         utc (str): date and time at which beta0 angle will be found
 
     Returns:
-        float: latitude, Earth frame (IAU_EARTH)
+        float: latitude, Earth frame (ITRF93)
         float: longitude, Earth frame
         float: right ascension, Inertial J2000 frame (J2000)
         float: declination, Inertial J2000 frame
@@ -18,7 +18,7 @@ def latlon(utc,target):
 
     et = sp.str2et(utc)
     ref_J2000 = 'J2000'
-    ref_EARTH = 'IAU_EARTH'
+    ref_EARTH = 'ITRF93'
     abcorr = 'NONE'
 
     [pos_J2000, lt] = sp.spkpos(target, et, ref_J2000, abcorr, 'EARTH')

@@ -94,7 +94,8 @@ Returns
     ### Calculate remaining arguments for pckw02 call
     first, last = filts[0,0] - filts[0,1], filts[-1,0] + filts[-1,1]
     segid = update_id(self.name)
-    cdata = filts.flatten()
+    ### - cdata are Chebys only; drop first two elements of filts
+    cdata = filts.flatten()[2:]
 
     sp.pckw02(handle, self.clssid, self.frame, first, last, segid
              , self.intlen, n, self.polydg, cdata, first
